@@ -1,0 +1,164 @@
+{
+  "timestamp": "2025-10-13T04:16:27.628677",
+  "n_subjects": 2,
+  "mean_accuracy": 0.7444444444444445,
+  "std_accuracy": 0.07777777777777778,
+  "subjects_above_70": 1,
+  "subjects_above_60": 2,
+  "per_subject_results": [
+    {
+      "subject_id": 1,
+      "accuracy_mean": 0.6666666666666666,
+      "accuracy_std": 0.07027283689263066,
+      "kappa": 0.33366238894373157,
+      "roc_auc": 0.6798418972332017,
+      "n_trials": 45,
+      "band": [
+        8.0,
+        30.0
+      ],
+      "time_window": [
+        1.0,
+        3.0
+      ],
+      "csp_components": 6,
+      "best_params": null,
+      "classification_report": {
+        "T1(left)": {
+          "precision": 0.6818181818181818,
+          "recall": 0.6521739130434783,
+          "f1-score": 0.6666666666666666,
+          "support": 23.0
+        },
+        "T2(right)": {
+          "precision": 0.6521739130434783,
+          "recall": 0.6818181818181818,
+          "f1-score": 0.6666666666666666,
+          "support": 22.0
+        },
+        "accuracy": 0.6666666666666666,
+        "macro avg": {
+          "precision": 0.6669960474308301,
+          "recall": 0.6669960474308301,
+          "f1-score": 0.6666666666666666,
+          "support": 45.0
+        },
+        "weighted avg": {
+          "precision": 0.6673254281949934,
+          "recall": 0.6666666666666666,
+          "f1-score": 0.6666666666666666,
+          "support": 45.0
+        }
+      },
+      "fold_results": [
+        {
+          "fold": 1,
+          "accuracy": 0.5555555555555556,
+          "train_size": 36,
+          "test_size": 9
+        },
+        {
+          "fold": 2,
+          "accuracy": 0.7777777777777778,
+          "train_size": 36,
+          "test_size": 9
+        },
+        {
+          "fold": 3,
+          "accuracy": 0.6666666666666666,
+          "train_size": 36,
+          "test_size": 9
+        },
+        {
+          "fold": 4,
+          "accuracy": 0.6666666666666666,
+          "train_size": 36,
+          "test_size": 9
+        },
+        {
+          "fold": 5,
+          "accuracy": 0.6666666666666666,
+          "train_size": 36,
+          "test_size": 9
+        }
+      ]
+    },
+    {
+      "subject_id": 2,
+      "accuracy_mean": 0.8222222222222222,
+      "accuracy_std": 0.1507184440694504,
+      "kappa": 0.6428571428571428,
+      "roc_auc": 0.8122529644268776,
+      "n_trials": 45,
+      "band": [
+        8.0,
+        30.0
+      ],
+      "time_window": [
+        1.0,
+        3.0
+      ],
+      "csp_components": 6,
+      "best_params": null,
+      "classification_report": {
+        "T1(left)": {
+          "precision": 0.7777777777777778,
+          "recall": 0.9130434782608695,
+          "f1-score": 0.84,
+          "support": 23.0
+        },
+        "T2(right)": {
+          "precision": 0.8888888888888888,
+          "recall": 0.7272727272727273,
+          "f1-score": 0.8,
+          "support": 22.0
+        },
+        "accuracy": 0.8222222222222222,
+        "macro avg": {
+          "precision": 0.8333333333333333,
+          "recall": 0.8201581027667983,
+          "f1-score": 0.8200000000000001,
+          "support": 45.0
+        },
+        "weighted avg": {
+          "precision": 0.8320987654320987,
+          "recall": 0.8222222222222222,
+          "f1-score": 0.8204444444444445,
+          "support": 45.0
+        }
+      },
+      "fold_results": [
+        {
+          "fold": 1,
+          "accuracy": 1.0,
+          "train_size": 36,
+          "test_size": 9
+        },
+        {
+          "fold": 2,
+          "accuracy": 0.8888888888888888,
+          "train_size": 36,
+          "test_size": 9
+        },
+        {
+          "fold": 3,
+          "accuracy": 0.7777777777777778,
+          "train_size": 36,
+          "test_size": 9
+        },
+        {
+          "fold": 4,
+          "accuracy": 0.5555555555555556,
+          "train_size": 36,
+          "test_size": 9
+        },
+        {
+          "fold": 5,
+          "accuracy": 0.8888888888888888,
+          "train_size": 36,
+          "test_size": 9
+        }
+      ]
+    }
+  ]
+}

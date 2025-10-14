@@ -1,0 +1,39 @@
+================================================================================
+EEG MOTOR IMAGERY CLASSIFICATION - EVALUATION REPORT
+================================================================================
+
+Generated: 2025-10-13 04:16:27
+Algorithm: CSP + LDA
+Cross-validation: 5-fold Stratified
+
+OVERALL STATISTICS
+--------------------------------------------------------------------------------
+Number of subjects: 2
+Mean accuracy: 74.44% ± 7.78%
+Subjects ≥70%: 1/2
+Subjects ≥60%: 2/2
+
+PER-SUBJECT RESULTS
+--------------------------------------------------------------------------------
+
+Subject 1:
+  Accuracy: 66.67% ± 7.03%
+  Cohen's Kappa: 0.334
+  ROC AUC: 0.680
+  Trials: 45
+  CSP components: 6
+  Frequency band: 8.0-30.0 Hz
+  Time window: 1.0-3.0 s
+  T1(left)  - Precision: 0.682, Recall: 0.652, F1: 0.667
+  T2(right) - Precision: 0.652, Recall: 0.682, F1: 0.667
+
+Subject 2:
+  Accuracy: 82.22% ± 15.07%
+  Cohen's Kappa: 0.643
+  ROC AUC: 0.812
+  Trials: 45
+  CSP components: 6
+  Frequency band: 8.0-30.0 Hz
+  Time window: 1.0-3.0 s
+  T1(left)  - Precision: 0.778, Recall: 0.913, F1: 0.840
+  T2(right) - Precision: 0.889, Recall: 0.727, F1: 0.800
