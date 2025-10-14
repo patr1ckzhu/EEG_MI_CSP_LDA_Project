@@ -96,7 +96,7 @@ def download_subjects(subjects, runs, data_dir="data/raw", verbose=True):
             try:
                 # Download using MNE
                 mne.datasets.eegbci.load_data(
-                    subject=subject_id,
+                    subjects=[subject_id],
                     runs=[run],
                     path=str(data_path),
                     update_path=False,
