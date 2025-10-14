@@ -172,7 +172,7 @@ def train_eegnet_cv(X, y, n_channels, n_timepoints, n_splits=5,
 
         # Learning rate scheduler
         scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, mode='max', factor=0.5, patience=10, verbose=False
+            optimizer, mode='max', factor=0.5, patience=10
         )
 
         # Training loop
