@@ -170,7 +170,7 @@ def train_model(model, train_loader, criterion, optimizer, device, epochs=100,
             val_acc, val_loss = evaluate_model(model, val_loader, criterion, device)
             scheduler.step(val_acc)
 
-            if verbose and (epoch + 1) % 20 == 0:
+            if verbose and (epoch + 1) % 5 == 0:
                 print(f"Epoch {epoch+1:3d}: "
                       f"Train Loss={train_loss:.4f} Acc={train_acc:.4f} | "
                       f"Val Loss={val_loss:.4f} Acc={val_acc:.4f}")
@@ -186,7 +186,7 @@ def train_model(model, train_loader, criterion, optimizer, device, epochs=100,
                         print(f"Early stopping at epoch {epoch+1}")
                     break
         else:
-            if verbose and (epoch + 1) % 20 == 0:
+            if verbose and (epoch + 1) % 5 == 0:
                 print(f"Epoch {epoch+1:3d}: Train Loss={train_loss:.4f} Acc={train_acc:.4f}")
 
     return model
@@ -276,12 +276,17 @@ def leave_one_subject_out_cv(all_subjects, data_dir, config, n_channels, n_timep
         )
 
         # Optimize DataLoader for GPU training (CRITICAL for performance!)
-        num_workers = 4 if device.type == 'cuda' else 0
+        # Increase num_workers to 8 for better GPU utilization
+        num_workers = 8 if device.type == 'cuda' else 0
         train_loader = DataLoader(train_dataset, batch_size=batch_size,
                                  shuffle=True, drop_last=False,
-                                 num_workers=num_workers, pin_memory=True)
+                                 num_workers=num_workers, pin_memory=True,
+                                 persistent_workers=True if num_workers > 0 else False,
+                                 prefetch_factor=4 if num_workers > 0 else None)
         test_loader = DataLoader(test_dataset, batch_size=batch_size,
-                                shuffle=False, num_workers=num_workers, pin_memory=True)
+                                shuffle=False, num_workers=num_workers, pin_memory=True,
+                                persistent_workers=True if num_workers > 0 else False,
+                                prefetch_factor=4 if num_workers > 0 else None)
 
         # Initialize model
         ModelClass = ResNet1DLarge if use_large_model else ResNet1D
