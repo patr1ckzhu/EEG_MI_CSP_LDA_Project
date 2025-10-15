@@ -150,12 +150,12 @@ def load_and_select_channels(edf_files, channel_config, sfreq=160):
     )
 
     if missing_channels:
-        print(f"⚠️  Missing channels: {missing_channels}")
+        print(f"[WARNING] Missing channels: {missing_channels}")
 
     if not matched_channels:
         raise ValueError(f"No matching channels found!")
 
-    print(f"✓ Matched channels ({len(matched_channels)}): {matched_channels}")
+    print(f"[OK] Matched channels ({len(matched_channels)}): {matched_channels}")
 
     # Select only matched channels
     raw.pick_channels(matched_channels)
