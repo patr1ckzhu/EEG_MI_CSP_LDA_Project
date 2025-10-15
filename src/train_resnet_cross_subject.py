@@ -47,13 +47,13 @@ def get_device():
     """Automatically select best available device"""
     if torch.cuda.is_available():
         device = torch.device('cuda')
-        print(f"✓ Using GPU: {torch.cuda.get_device_name(0)}")
+        print(f"[GPU] Using GPU: {torch.cuda.get_device_name(0)}")
     elif torch.backends.mps.is_available():
         device = torch.device('mps')
-        print("✓ Using Apple Silicon GPU (MPS)")
+        print("[GPU] Using Apple Silicon GPU (MPS)")
     else:
         device = torch.device('cpu')
-        print("⚠️  Using CPU (training will be slower)")
+        print("[WARNING] Using CPU (training will be slower)")
     return device
 
 
@@ -102,7 +102,7 @@ def load_multi_subject_data(subject_ids, data_dir, config, band=(8, 30),
             print(f"  Subject {subject_id:02d}: {len(y)} trials")
 
         except Exception as e:
-            print(f"  ✗ Subject {subject_id:02d}: Failed ({e})")
+            print(f"  [FAILED] Subject {subject_id:02d}: Failed ({e})")
             continue
 
     if not X_all:

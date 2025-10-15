@@ -121,7 +121,7 @@ def main():
 
     if returncode == 0:
         print("\n" + "="*70)
-        print("✓ Training completed successfully!")
+        print("[SUCCESS] Training completed successfully!")
         print("="*70)
         print(f"\nResults saved to: {output_dir}/")
         print(f"  - loso_results.json")
@@ -129,7 +129,7 @@ def main():
         print("="*70 + "\n")
     else:
         print("\n" + "="*70)
-        print("✗ Training failed!")
+        print("[FAILED] Training failed!")
         print("="*70 + "\n")
         sys.exit(1)
 
