@@ -110,12 +110,15 @@ def load_multi_subject_data(subject_ids, data_dir, config, band=(8, 30),
 
 
 def train_model(model, train_loader, criterion, optimizer, device, epochs=100,
-               val_loader=None, patience=20, verbose=True):
-    """Train EEGNet model with early stopping"""
+               val_loader=None, patience=20, verbose=True, use_amp=True):
+    """Train EEGNet model with early stopping and mixed precision"""
 
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
         optimizer, mode='max', factor=0.5, patience=10
     )
+
+    # Mixed precision training for GPU speedup
+    scaler = torch.cuda.amp.GradScaler() if use_amp and device.type == 'cuda' else None
 
     best_val_acc = 0
     patience_counter = 0
@@ -130,12 +133,23 @@ def train_model(model, train_loader, criterion, optimizer, device, epochs=100,
         for X_batch, y_batch in train_loader:
             X_batch, y_batch = X_batch.to(device), y_batch.to(device)
 
-            outputs = model(X_batch)
-            loss = criterion(outputs, y_batch)
+            # Mixed precision forward pass
+            if scaler is not None:
+                with torch.cuda.amp.autocast():
+                    outputs = model(X_batch)
+                    loss = criterion(outputs, y_batch)
 
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
+                optimizer.zero_grad()
+                scaler.scale(loss).backward()
+                scaler.step(optimizer)
+                scaler.update()
+            else:
+                outputs = model(X_batch)
+                loss = criterion(outputs, y_batch)
+
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
 
             total_loss += loss.item()
             _, predicted = torch.max(outputs.data, 1)
@@ -254,10 +268,13 @@ def leave_one_subject_out_cv(all_subjects, data_dir, config, n_channels, n_timep
             torch.LongTensor(y_test)
         )
 
+        # Optimize DataLoader for GPU training
+        num_workers = 4 if device.type == 'cuda' else 0
         train_loader = DataLoader(train_dataset, batch_size=batch_size,
-                                 shuffle=True, drop_last=False)
+                                 shuffle=True, drop_last=False,
+                                 num_workers=num_workers, pin_memory=True)
         test_loader = DataLoader(test_dataset, batch_size=batch_size,
-                                shuffle=False)
+                                shuffle=False, num_workers=num_workers, pin_memory=True)
 
         # Initialize model
         ModelClass = EEGNetLarge if use_large_model else EEGNet
